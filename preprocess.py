@@ -16,7 +16,7 @@ def readimage(imagename):
     outfile = imagename + ".txt" 
     header = str(width) + ' , '+str(height) 
     np.savetxt(outfile, img1d, fmt = '%d', delimiter = "," , header = header)   
-    print( "Output written to txt file \n ") 
+    print( "Output written to .txt file \n ") 
 
 #functionality allowing for multiple files to be read in 
 print("Welcome to our image processor. ") 
