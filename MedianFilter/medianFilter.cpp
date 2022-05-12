@@ -4,7 +4,8 @@
 #include <fstream>
 #include <string>
 #include<stdio.h>
-#include<CL/cl.h>
+#include <CL/cl.h>
+#include <array>
 using namespace std;
 
 int main(void)
@@ -25,8 +26,13 @@ int main(void)
 		for (int i=0;i<w*l;i++){
 			file >> arr[i];
 		}
+		cout << ".txt file imported to 1D array" << '\n'
 	}
-
+	cout << arr.size();
+	int test_array[16];
+	for (j=0;j<16;j++){
+		test_array[i]=i;
+	}
 	/* OpenCL structures you need to program*/
 	//cl_device_id device; step 1 and 2 
 	//cl_context context;  step 3
@@ -172,8 +178,8 @@ int main(void)
 	//TODO code 9.1: set the number of work items, size of the work items and determine the number of work groups
 
     //Where we determine how many work items and work groups we want for the program. 
-	size_t global_size = 16; //total number of work items
-	size_t local_size = 4; //Size of each work group
+	size_t global_size = w*l; //total number of work items
+	size_t local_size = 1; //Size of each work group
 	cl_int num_groups = global_size/local_size; //number of work groups needed
 
 	int argument1 = 10; //argument 1 that has to be sent to the target device
