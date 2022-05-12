@@ -1,6 +1,6 @@
 //Kernel for OpenCL implementation.
 
-__kernel void MedianFilter(__global int* argument1, __global int* argument2, __global int* output){
+__kernel void Edge(__global int* argument1, __global int* argument2, __global int* output){
 	//work item and work groups numbers
 	int workItemNum = get_global_id(0); //Work item ID
 	int workGroupNum = get_group_id(0); //Work group ID
