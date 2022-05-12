@@ -2,8 +2,6 @@ import numpy as np
 import sys
 from PIL import Image 
 
-
- 
 def readimage(imagename):
     print("Reading image " ,str(imagename)) 
     img = Image.open(filename) 
