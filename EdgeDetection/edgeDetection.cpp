@@ -3,11 +3,31 @@
 
 #include<stdio.h>
 #include<CL/cl.h>
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 
 int main(void)
 {
+	// Read pixels from .txt file
+	string filename;
+	cout << "Enter .txt filename: ";
+	cin >> filename;
+	
+	ifstream file(filename);
+	
+	if(file.is_open()){
+		int w;
+		int l;
+		file >> w;
+		file >> l;
+		int arr[w*l];
+		for (int i=0;i<w*l;i++){
+			file >> arr[i];
+		}
+		cout << arr[23636];
+	}
 	/* OpenCL structures you need to program*/
 	//cl_device_id device; step 1 and 2 
 	//cl_context context;  step 3
