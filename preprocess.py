@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import numpy as np
 import sys
 from PIL import Image 
@@ -36,7 +35,6 @@ while (running == True):
             imagearray=readimage(filename)
         except FileNotFoundError: 
             print("The file does not exist, try again. ") 
-=======
 import numpy as np
 import sys
 from PIL import Image 
@@ -74,4 +72,3 @@ while (running == True):
             imagearray=readimage(filename)
         except FileNotFoundError: 
             print("The file does not exist, try again. ") 
->>>>>>> ebde378ffe1e0ce60e4ab359462ecf2b21186306
