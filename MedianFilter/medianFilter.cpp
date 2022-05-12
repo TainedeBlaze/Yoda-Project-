@@ -24,10 +24,9 @@ int main(void)
 		for (int i=0;i<w*l*3;i++){
 			file >> arr[i];
 		}
-		cout << l*w*3;
 		cout << ".txt file imported to 1D array" << '\n';
 	
-	cout << "Size: " <<sizeof(arr);
+	cout << sizeof(arr);
 	int test_array[16];
 	for (int j=0;j<16;j++){
 		test_array[j]=j;
