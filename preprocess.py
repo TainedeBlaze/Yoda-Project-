@@ -10,19 +10,14 @@ def readimage(imagename):
     pixelarray=pixelarray.reshape(-1)
 
     # Adding dimensions to beginning of array
-    print(np.size(pixelarray))
     pixelarray=np.insert(pixelarray,0,height) 
     pixelarray=np.insert(pixelarray,0,width)    
-    print(np.size(pixelarray))
-    print(pixelarray[0])
     print("Image had width of" , width , " and height of" , height) 
-    
-    #writing width, height and array to text file 
+     
     img1d = np.reshape(pixelarray,-1)     
 
-    print(np.size(img1d))
     outfile = imagename.split('.')[0] + ".txt" 
-    #header = str(width) + ' , '+str(height) 
+
     np.savetxt(outfile, img1d, fmt = '%d', delimiter = ",")   
     print( "Output written to .txt file \n ") 
 
