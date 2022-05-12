@@ -7,8 +7,6 @@
 #include<CL/cl.h>
 using namespace std;
 
-
-
 int main(void)
 {	
 	// Read pixels from .txt file
@@ -21,7 +19,8 @@ int main(void)
 	if(file.is_open()){
 		int w;
 		int l;
-		
+		file >> w;
+		file >> l;
 	}
 
 	/* OpenCL structures you need to program*/
