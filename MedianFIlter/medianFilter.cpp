@@ -1,13 +1,29 @@
 //Author: Christopher Hill For the EEE4120F course at UCT
 //Edited for median filter use-case: Michael Altshuler, Taine De Buys, Julian Zille
-
+#include <iostream>
+#include <fstream>
+#include <string>
 #include<stdio.h>
 #include<CL/cl.h>
-
 using namespace std;
 
+
+
 int main(void)
-{
+{	
+	// Read pixels from .txt file
+	string filename;
+	cout << "Enter .txt filename: ";
+	cin >> filename;
+	
+	ifstream file(filename);
+	
+	if(file.is_open()){
+		int w;
+		int l;
+		
+	}
+
 	/* OpenCL structures you need to program*/
 	//cl_device_id device; step 1 and 2 
 	//cl_context context;  step 3
@@ -86,7 +102,7 @@ int main(void)
 	//read file in	
 	FILE *program_handle;
 	//TODO code 4: select the directory of the file that contains the kernel
-	program_handle = fopen("OpenCL/Kernel.cl", "r");
+	program_handle = fopen("median.cl", "r");
 
 	//get program size
 	size_t program_size;//, log_size;

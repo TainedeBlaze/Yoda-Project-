@@ -20,10 +20,6 @@ def convertToImage(filename):
     #img = Image.fromarray(data , "RGB") 
     img.save("output.png") 
 
-
-
-
-
 Running = True 
 while (Running == True): 
     filename = input("Please enter txt file to convert to image or type exit: \n")
