@@ -5,7 +5,6 @@
 #include <string>
 #include<stdio.h>
 #include <CL/cl.h>
-#include <array>
 using namespace std;
 
 int main(void)
@@ -28,7 +27,7 @@ int main(void)
 		}
 		cout << ".txt file imported to 1D array" << '\n';
 	}
-	cout << arr.size();
+	cout << sizeof(arr);
 	int test_array[16];
 	for (j=0;j<16;j++){
 		test_array[i]=i;
