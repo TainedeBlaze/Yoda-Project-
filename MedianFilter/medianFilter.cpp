@@ -176,7 +176,7 @@ int main(void)
 	//TODO code 9.1: set the number of work items, size of the work items and determine the number of work groups
 
     //Where we determine how many work items and work groups we want for the program. 
-	size_t global_size = w*l; //total number of work items
+	size_t global_size = 10; //total number of work items
 	size_t local_size = 1; //Size of each work group
 	cl_int num_groups = global_size/local_size; //number of work groups needed
 
