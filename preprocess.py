@@ -6,14 +6,18 @@ def readimage(imagename):
     print("Reading image " ,str(imagename)) 
     img = Image.open(filename) 
     pixelarray = np.array(img) 
+
+    # Adding dimensions to beginning of array
     width , height = img.size 
+    np.insert(pixelarray,0,height) 
+    np.insert(pixelarray,0,width)
     print("Image had width of" , width , " and height of" , height) 
     
     #writing width, height and array to text file 
     img1d = np.reshape(pixelarray,(1,-1)) 
     outfile = imagename.split('.')[0] + ".txt" 
-    header = str(width) + ' , '+str(height) 
-    np.savetxt(outfile, img1d, fmt = '%d', delimiter = "," , header = header)   
+    #header = str(width) + ' , '+str(height) 
+    np.savetxt(outfile, img1d, fmt = '%d', delimiter = ",")   
     print( "Output written to .txt file \n ") 
 
 #functionality allowing for multiple files to be read in 
