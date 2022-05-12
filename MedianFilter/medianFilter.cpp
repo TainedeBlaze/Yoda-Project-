@@ -21,8 +21,10 @@ int main(void)
 		int l;
 		file >> w;
 		file >> l;
-		cout << l;
-		cout << w;
+		int arr[w*l];
+		for (int i=0;i<w*l;i++){
+			file >> arr[i];
+		}
 	}
 
 	/* OpenCL structures you need to program*/
