@@ -1,4 +1,4 @@
-//Author: Christopher Hill For the EEE4120F course at UCT
+//AAuthor: Christopher Hill For the EEE4120F course at UCT
 //Edited for median filter use-case: Michael Altshuler, Taine De Buys, Julian Zille
 #include <iostream>
 #include <fstream>
