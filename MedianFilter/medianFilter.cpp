@@ -25,7 +25,7 @@ int main(void)
 		for (int i=0;i<w*l;i++){
 			file >> arr[i];
 		}
-		cout << arr[0] << '\n' << arr[1];
+		cout << arr[23636];
 	}
 
 	/* OpenCL structures you need to program*/
