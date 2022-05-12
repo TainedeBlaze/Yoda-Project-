@@ -26,7 +26,7 @@ int main(void)
 		for (int i=0;i<w*l;i++){
 			file >> arr[i];
 		}
-		cout << ".txt file imported to 1D array" << '\n'
+		cout << ".txt file imported to 1D array" << '\n';
 	}
 	cout << arr.size();
 	int test_array[16];
