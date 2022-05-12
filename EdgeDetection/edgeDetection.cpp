@@ -26,7 +26,6 @@ int main(void)
 		for (int i=0;i<w*l;i++){
 			file >> arr[i];
 		}
-		cout << arr[23636];
 	}
 	/* OpenCL structures you need to program*/
 	//cl_device_id device; step 1 and 2 
