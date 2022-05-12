@@ -15,8 +15,9 @@ int main(void)
 	cin >> filename;
 	
 	ifstream file(filename);
-	
-	if(file.is_open()){
+	int w;
+	int l;
+	if(file.is_open())
 		int w;
 		int l;
 		file >> w;
@@ -26,7 +27,7 @@ int main(void)
 			file >> arr[i];
 		}
 		cout << ".txt file imported to 1D array" << '\n';
-	}
+	
 	cout << sizeof(arr);
 	int test_array[16];
 	for (j=0;j<16;j++){
