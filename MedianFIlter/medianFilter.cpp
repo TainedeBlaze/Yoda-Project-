@@ -86,7 +86,7 @@ int main(void)
 	//read file in	
 	FILE *program_handle;
 	//TODO code 4: select the directory of the file that contains the kernel
-	program_handle = fopen("OpenCL/Kernel.cl", "r");
+	program_handle = fopen("median.cl", "r");
 
 	//get program size
 	size_t program_size;//, log_size;
