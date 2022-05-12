@@ -15,7 +15,7 @@ def readimage(imagename):
     print("Image had width of" , width , " and height of" , height) 
      
     img1d = np.reshape(pixelarray,-1)     
-
+    print("Size: ", len(img1d))
     outfile = imagename.split('.')[0] + ".txt" 
 
     np.savetxt(outfile, img1d, fmt = '%d', delimiter = ",")   
