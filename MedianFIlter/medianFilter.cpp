@@ -21,6 +21,8 @@ int main(void)
 		int l;
 		file >> w;
 		file >> l;
+		cout << l;
+		cout << w;
 	}
 
 	/* OpenCL structures you need to program*/
