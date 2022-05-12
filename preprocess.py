@@ -8,10 +8,13 @@ def readimage(imagename):
     width , height = img.size
     pixelarray = np.array(img) 
     pixelarray=pixelarray.reshape(-1)
+
     # Adding dimensions to beginning of array
-    np.insert(pixelarray,0,height) 
-    np.insert(pixelarray,0,width)    
-    
+    print(np.size(pixelarray))
+    pixelarray=np.insert(pixelarray,0,height) 
+    pixelarray=np.insert(pixelarray,0,width)    
+    print(np.size(pixelarray))
+    print(pixelarray[0])
     print("Image had width of" , width , " and height of" , height) 
     
     #writing width, height and array to text file 
