@@ -7,11 +7,11 @@ def readimage(imagename):
     img = Image.open(filename) 
     pixelarray = np.array(img) 
     width , height = img.size 
-    print("Image had width of " , width , " and height of " , height) 
+    print("Image had width of" , width , " and height of" , height) 
     
     #writing width, height and array to text file 
     img1d = np.reshape(pixelarray,(1,-1)) 
-    outfile = imagename + ".txt" 
+    outfile = imagename.split('.')[0] + ".txt" 
     header = str(width) + ' , '+str(height) 
     np.savetxt(outfile, img1d, fmt = '%d', delimiter = "," , header = header)   
     print( "Output written to .txt file \n ") 
