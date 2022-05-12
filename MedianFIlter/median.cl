@@ -13,7 +13,9 @@ __kernel void MedianFilter(__global int* argument1, __global int* argument2, __g
 	
 	//short calculation: work Item Number x argument 1 + argument 2
     //This is a test output to see if the Kernel produces an output.
-	output[global_addr] = global_addr*arg1 + arg2;
-    printf("output[%d] = %d\n", workItemNum, output[workItemNum]);
+	//output[global_addr] = global_addr*arg1 + arg2;
+    //printf("output[%d] = %d\n", workItemNum, output[workItemNum]);
 	
+    output[global_addr] = arg1 + arg2;
+    printf("output[%d] = %d\n", workItemNum, output[workItemNum]);
 }
