@@ -18,8 +18,6 @@ int main(void)
 	int w;
 	int l;
 	if(file.is_open())
-		int w;
-		int l;
 		file >> w;
 		file >> l;
 		int arr[w*l];
@@ -30,8 +28,8 @@ int main(void)
 	
 	cout << sizeof(arr);
 	int test_array[16];
-	for (j=0;j<16;j++){
-		test_array[i]=i;
+	for (int j=0;j<16;j++){
+		test_array[j]=j;
 	}
 	/* OpenCL structures you need to program*/
 	//cl_device_id device; step 1 and 2 
