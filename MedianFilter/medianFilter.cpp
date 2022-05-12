@@ -20,8 +20,8 @@ int main(void)
 	if(file.is_open())
 		file >> w;
 		file >> l;
-		int arr[w*l];
-		for (int i=0;i<w*l;i++){
+		int arr[w*l*3];
+		for (int i=0;i<w*l*3;i++){
 			file >> arr[i];
 		}
 		cout << ".txt file imported to 1D array" << '\n';
