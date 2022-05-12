@@ -11,8 +11,8 @@ class medianFilter{
 
 	public: 
 		std::string filename ; 
-		std::string width; //dimensions of image 
-		std::string height;
+		int width; //dimensions of image 
+		int height;
 
 		//constructor accepting filename 
 		medianFilter(std::string filename) ; 
