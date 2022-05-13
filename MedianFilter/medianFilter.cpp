@@ -5,6 +5,7 @@
 #include <string>
 #include<stdio.h>
 #include <CL/cl.h>
+#include <stdlib.h>
 using namespace std;
 
 int main(void)
