@@ -239,11 +239,11 @@ int main(void)
 	
 	//***Step 13*** Check that the host was able to retrieve the output data from the output buffer
 	// printf("\nOutput in the filtered \n");
-	 for(int j=0; j<global_size; j++) {
-	 	printf("filtered[%d]=%d\n",j ,filtered[j]);
-	 }
-	 for(int k=0;k<sz;k++){
-		printf("arr[%d] = %d\n",k,arr[k]);}
+	  for(int j=0; j<global_size; j++) {
+	  	printf("filtered[%d]=%d\n",j ,filtered[j]);
+	  }
+	// for(int k=0;k<sz;k++){
+		//printf("arr[%d] = %d\n",k,arr[k]);}
 	//------------------------------------------------------------------------
 
 	//***Step 14*** Deallocate resources
