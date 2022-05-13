@@ -44,7 +44,7 @@ int main(void)
 	 
 	 
 	//Initialize Buffers, memory space the allows for communication between the host and the target device
-	cl_mem argument1_buffer, argument2_buffer, argument3_buffer,output_buffer;
+	cl_mem RGB_buffer, width_buffer, length_buffer,grayscale_buffer, filtered_buffer;
 
 	//***step 1*** Get the platform you want to use
 	//cl_int clGetPlatformIDs(cl_uint num_entries,
@@ -182,9 +182,8 @@ int main(void)
 	size_t local_size = 1; //Size of each work group
 	cl_int num_groups = global_size/local_size; //number of work groups needed
 
-	//int argument1 = 10; //argument 1 that has to be sent to the target device
-	//int argument2 = 20; //argument 2 that has to be sent to the target device
 	int filtered[global_size]; //output array
+	int grayscale[global_size];
 
 	//Buffer (memory block) that both the host and target device can access 
 		//cl_mem clCreateBuffer(cl_context context,
@@ -194,11 +193,12 @@ int main(void)
 	//			cl_int* errcode_ret);
 	
 	//TODO code 9.2: Create the buffer for argument 1
-	argument1_buffer = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sz*sizeof(int), arr, &err);
-	argument2_buffer = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(uint), &w, &err);
-	argument3_buffer = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(uint), &l, &err);
+	RGB_buffer = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sz*sizeof(int), arr, &err);
+	width_buffer = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(uint), &w, &err);
+	length_buffer = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(uint), &l, &err);
     //Stores outputs from kernel so host can retrieve what the kernel has calculated.
-	output_buffer = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, global_size*sizeof(int), filtered, &err);
+	grayscale_buffer = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, global_size*sizeof(int), grayscale, &err);
+	filtered_buffer = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, global_size*sizeof(int), filtered, &err);
 
 
 	//------------------------------------------------------------------------
@@ -209,10 +209,11 @@ int main(void)
 	//				size_t arg_size, 
 	//				const void *arg_value)
 	//TODO code 10: create the arguments for the kernel. Will need to change these according to arguments for median filter
-	clSetKernelArg(kernel, 0, sizeof(cl_mem), &argument1_buffer);
-	clSetKernelArg(kernel, 1, sizeof(cl_mem), &argument2_buffer);
-	clSetKernelArg(kernel, 2, sizeof(cl_mem), &argument3_buffer);
-	clSetKernelArg(kernel, 3, sizeof(cl_mem), &output_buffer);
+	clSetKernelArg(kernel, 0, sizeof(cl_mem), &RGB_buffer);
+	clSetKernelArg(kernel, 1, sizeof(cl_mem), &width_buffer);
+	clSetKernelArg(kernel, 2, sizeof(cl_mem), &length_buffer);
+	clSetKernelArg(kernel, 3, sizeof(cl_mem), &grayscale_buffer);
+	clSetKernelArg(kernel, 4, sizeof(cl_mem), &filtered_buffer);
 	
 	//------------------------------------------------------------------------
 
@@ -235,12 +236,12 @@ int main(void)
 
 	//***Step 12*** Allows the host to read from the buffer object 
 	//TODO code 12: read the output values from the output buffer
-	err = clEnqueueReadBuffer(queue, output_buffer, CL_TRUE, 0, sizeof(filtered), filtered, 0, NULL, NULL);
+	err = clEnqueueReadBuffer(queue, grayscale_buffer, CL_TRUE, 0, sizeof(grayscale), grayscale, 0, NULL, NULL);
 	
 	//***Step 13*** Check that the host was able to retrieve the output data from the output buffer
 	// printf("\nOutput in the filtered \n");
 	  for(int j=0; j<global_size; j++) {
-	  	printf("filtered[%d]=%d\n",j ,filtered[j]);
+	  	printf("grayscale[%d]=%d\n",j ,grayscale[j]);
 	  }
 	// for(int k=0;k<sz;k++){
 		//printf("arr[%d] = %d\n",k,arr[k]);}
@@ -249,10 +250,11 @@ int main(void)
 	//***Step 14*** Deallocate resources
 	clFinish(queue);	
 	clReleaseKernel(kernel);
-	clReleaseMemObject(output_buffer);
-	clReleaseMemObject(argument1_buffer);
-	clReleaseMemObject(argument2_buffer);
-	clReleaseMemObject(argument3_buffer);
+	clReleaseMemObject(RGB_buffer);
+	clReleaseMemObject(filtered_buffer);
+	clReleaseMemObject(width_buffer);
+	clReleaseMemObject(length_buffer);
+	clReleaseMemObject(grayscale_buffer);
 	clReleaseCommandQueue(queue);
 	clReleaseProgram(program);
 	clReleaseContext(context);
