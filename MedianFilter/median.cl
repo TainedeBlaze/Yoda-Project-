@@ -1,6 +1,10 @@
 //Kernel for OpenCL implementation.
 
-__kernel void MedianFilter(__global int* arr, __global uint* w, __global uint* l, __global int* grayscale, __global int* filtered){
+__kernel void MedianFilter(__global int* arr, 
+						__global uint* w, 
+						__global uint* l, 
+						__global int* grayscale, 
+						__global int* filtered){
 	//work item and work groups numbers
 	uint n = get_global_id(0); //Work item ID
 	//int workGroupNum = get_group_id(0); //Work group ID
@@ -21,23 +25,21 @@ __kernel void MedianFilter(__global int* arr, __global uint* w, __global uint* l
 	//printf("w = %d, l=%d\n",W,L);
 	grayscale[n]=arr[n*3]+arr[n*3+1]+arr[n*3+2];
 	barrier(CLK_GLOBAL_MEM_FENCE); // Wait for summation of all RGB pixels
-	uint med[9];
-	//printf("Executed\n");
-	if (row!=0 && col!=0 && row!=L-1 && col!=W-1){
-		//printf("Executed\n");
-	 	for (int i=-1;i<2;i++){
-			med[i+1] = grayscale[n+i];
-			med[i+4] = grayscale[n-W+i];
-			med[i+7] = grayscale[n+W+i];
-		}
+	
+	int med[9];
+	for (int i=-1;i<2;i++){
+		med[i+1] = grayscale[n+i];
+		med[i+4] = grayscale[n-W+i];
+		med[i+7] = grayscale[n+W+i];
 		
-		//filtered[n]=(int)(med[4]+med[5])/2;
-
 	}
+	printf("%d,%d\n",med[0],med[1]);
+
+	
 
 	// for (int i=0;i<3;i++){
 	// 	med[i+4]=filtered[i];
 	// }
 	//printf("Executed\n");
-	//printf("Row: %d\nCol: %d\ngrayscale[%d]: %d\n\n",row,col,n,grayscale[n]);
+	// printf("Row: %d\nCol: %d\ngrayscale[%d]: %d\n\n",row,col,n,grayscale[n]);
 }

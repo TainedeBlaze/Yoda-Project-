@@ -10,7 +10,7 @@ using namespace std;
 
 int main(void)
 {	
-	// Read pixels from .txt file
+	//Read pixels from .txt file
 	// string filename;
 	// cout << "Enter .txt filename: ";
 	// cin >> filename;
@@ -18,19 +18,18 @@ int main(void)
 	// ifstream file(filename);
 	// uint w;
 	// uint l;
-	// if(file.is_open())
-	// 	file >> w;
-	// 	file >> l;
+	// if (file.is_open())
+	// 	file >> w; // width
+	// 	file >> l; // length
 	// 	int arr[w*l*3];
 	// 	int arr_fil[w*l*3];
 	// 	for (int i=0;i<w*l*3;i++){
 	// 		file >> arr[i];
 	// 	}
-	// 	cout << ".txt file imported to 1D array" << '\n';
+	// cout << ".txt file imported to 1D array" << '\n';
 	
 	int arr[]={2,4,7,30,46,23,23,65,86,34,57,3,34,87,94,123,143,67,23,43,197,33,76,97,34,78,54};
 	int sz=sizeof(arr)/sizeof(arr[0]);
-	printf("filtered[6] = %d\n",arr[6]);
 	int w=3;
 	int l=3;
 	cout << sz;
@@ -241,9 +240,9 @@ int main(void)
 	
 	//***Step 13*** Check that the host was able to retrieve the output data from the output buffer
 	// printf("\nOutput in the filtered \n");
-	  for(int j=0; j<global_size; j++) {
-	  	printf("grayscale[%d]=%d\n",j ,grayscale[j]);
-	  }
+	//   for(int j=0; j<global_size; j++) {
+	//   	printf("grayscale[%d]=%d\n",j ,grayscale[j]);
+	//   }
 	// for(int k=0;k<sz;k++){
 		//printf("arr[%d] = %d\n",k,arr[k]);}
 	//------------------------------------------------------------------------
