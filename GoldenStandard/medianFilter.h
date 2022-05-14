@@ -19,7 +19,8 @@ class medianFilter{
 		
 		//reads in file 
 		bool readFile(std::string filename) ; 
-
+		
+		std::vector <int> getFilteredArray(std::string inputfile) ; 
 
 }; 
 #endif 
