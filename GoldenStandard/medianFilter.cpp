@@ -20,11 +20,14 @@ bool medianFilter::readFile(std:: string filename)
 
 	std::string text ; //reads in lines from input buffer
         getline(inputfile , text) ; //reads in dimensions 
-
-	std::cout<< text << std::endl ;
-	
-	 	
 	//store width and height 
+	width = std::stoi(text) ; 
+	std::cout<< "width: " << width << std::endl ;
+	getline(inputfile , text) ;
+	height = std:: stoi(text) ; 
+	std::cout<< "height: " << height <<std::endl ; 
+	 	
+	 
 	
 
 	return true ; 
