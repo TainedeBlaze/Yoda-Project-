@@ -38,7 +38,7 @@ int main (int argc , char* argv []) {
 	else
 	{	//get pixel array 
 		std::vector <int> pixels ; 
-		pixels = filter.getFilteredArray(inFile) ; 
+		filter.getFilteredArray(inFile) ; 
 		return 1; 
 	}
 
