@@ -93,7 +93,12 @@ void medianFilter:: getFilteredArray ( std:: string inputfile) {
 	//write array to txt file 
 	std::ofstream outfile ;
     //inputfile.resize(inputfile.size()-4)	;
+
 	outfile.open("out_"+filename);
+
+	outfile << width<<endl;
+	outfile << height<<endl;
+
 	for (int j =0 ;  j < size ; j++)
 	{
 		outfile << filteredArray[j] <<std::endl ; 

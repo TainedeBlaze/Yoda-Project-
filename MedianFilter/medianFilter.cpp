@@ -29,10 +29,10 @@ int main(void)
 			inputfile >> arr[i];
 		}
 	cout << ".txt file imported to 1D array" << '\n';
-	cout << arr;
+	//cout << arr[0];
 	// int arr[]={2,4,7,30,46,23,23,65,86,34,57,3,34,87,94,123,143,67,23,43,197,33,76,97,34,78,54};
 	int sz=sizeof(arr)/sizeof(arr[0]);
-	cout << sz;
+	cout << "sz: " <<sz <<"\n";
 
 	/* OpenCL structures you need to program*/
 	//cl_device_id device; step 1 and 2 
@@ -252,9 +252,11 @@ int main(void)
 	cout<<filename;
 
 	outfile.open("out_"+filename);
-
-	for (int j =0 ;  j < w*l ; j++)
+	outfile << w<<endl;
+	outfile << l<<endl;
+	for (int j =0 ;  j < w*l; j++)
 	{
+		
 		outfile << filtered[j] <<std::endl; 
 	}	
 	outfile.close(); 
