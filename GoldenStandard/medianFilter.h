@@ -19,7 +19,8 @@ class medianFilter{
 		
 		//reads in file 
 		bool readFile(std::string filename) ; 
-
+		//writes filtered array to tet file
+		void getFilteredArray(std::string inputfile) ; 
 
 }; 
 #endif 

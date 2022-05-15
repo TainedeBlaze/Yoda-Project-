@@ -4,14 +4,14 @@ from PIL import Image
 
 def readimage(imagename):
     print("Reading image " ,str(imagename)) 
-    img = Image.open(filename) 
+    img = Image.open(imagename) 
     width , height = img.size
     pixelarray = np.array(img) 
     pixelarray=pixelarray.reshape(-1)
 
     # Adding dimensions to beginning of array
-    pixelarray=np.insert(pixelarray,0,height) 
-    pixelarray=np.insert(pixelarray,0,width)    
+    pixelarray = np.insert(pixelarray,0,int(height)) 
+    pixelarray = np.insert(pixelarray,0,int(width))    
     print("Image had width of" , width , " and height of" , height) 
      
     img1d = np.reshape(pixelarray,-1)     

@@ -35,8 +35,11 @@ int main (int argc , char* argv []) {
 	{
 		return 0 ; 
 	}
-
-	return 0; 
-
+	else
+	{	//get pixel array 
+		std::vector <int> pixels ; 
+		filter.getFilteredArray(inFile) ; 
+		return 1; 
+	}
 
 }
