@@ -11,7 +11,7 @@ def convertToImage(filename,width,height):
     data_array = np.reshape(data_array, (int(width),int(height))) 
     #parse through and find all digits 
     newimage =Image.fromarray(np.uint8(data_array))  
-    newimage.save(filename.replace("_output.txt","") +"_output.png") 
+    newimage.save(filename.replace(".txt","") +".png") 
 
 Running = True 
 while (Running == True): 
@@ -20,7 +20,7 @@ while (Running == True):
         quit() 
     else: 
         try:
-            width = input("enter image width \n ") 
+            width = input("Enter image width: \n ") 
             height = input("Enter image height: \n") 
 
             convertToImage(filename,width,height) 
