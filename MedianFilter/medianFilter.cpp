@@ -1,5 +1,6 @@
 //AAuthor: Christopher Hill For the EEE4120F course at UCT
-//Edited for median filter use-case: Michael Altshuler, Taine De Buys, Julian Zille
+//Edited for median filter use-case: 
+// Michael Altshuler, Taine De Buys, Julian Zille
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -7,6 +8,7 @@
 #include <CL/cl.h>
 #include <stdlib.h>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 int main(void)
@@ -31,9 +33,7 @@ int main(void)
 	// int arr[]={2,4,7,30,46,23,23,65,86,34,57,3,34,87,94,123,143,67,23,43,197,33,76,97,34,78,54};
 	int sz=sizeof(arr)/sizeof(arr[0]);
 	cout << sz;
-	// int w=3;
-	// int l=3;
-	// cout << sz;
+
 	/* OpenCL structures you need to program*/
 	//cl_device_id device; step 1 and 2 
 	//cl_context context;  step 3
@@ -42,7 +42,6 @@ int main(void)
 	//cl_command_queue queue; step 8
 	
 	//------------------------------------------------------------------------
-	 
 	 
 	//Initialize Buffers, memory space the allows for communication between the host and the target device
 	cl_mem RGB_buffer, width_buffer, length_buffer,grayscale_buffer, filtered_buffer;
@@ -249,14 +248,17 @@ int main(void)
 	//------------------------------------------------------------------------
 	//write array to txt file 
 	ofstream outfile;
-	outfile.open("_out.txt");
+	file.resize(file.size()-4)
+
+	outfile.open(file + "_output.txt");
+
 	for (int j =0 ;  j < w*l ; j++)
 	{
 		outfile << filtered[j] <<std::endl; 
 	}	
 	outfile.close(); 
 	
-
+	// printf("%s",filename);
 	//***Step 14*** Deallocate resources
 	clFinish(queue);	
 	clReleaseKernel(kernel);

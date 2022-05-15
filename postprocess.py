@@ -2,9 +2,6 @@ import numpy as np
 from PIL import Image 
 import re 
 
-
-
-
 def convertToImage(filename,width,height): 
     textfile = open(filename, 'r')
     data = textfile.read().splitlines() 
