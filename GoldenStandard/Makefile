@@ -8,4 +8,4 @@ medianFilter.o : medianFilter.cpp
 	g++ -c medianFilter.cpp -o medianFilter.o
 
 clean: 
-	rm *.o driver.exe 
+	rm *.o *.png *.txt driver.exe  

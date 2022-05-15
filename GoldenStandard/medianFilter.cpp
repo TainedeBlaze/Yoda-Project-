@@ -5,6 +5,7 @@
 #include "medianFilter.h"
 #include <fstream> 
 #include <algorithm>
+#include <chrono> 
 medianFilter:: medianFilter(std::string filename):
 	filename(filename)
 {}
@@ -27,6 +28,9 @@ bool medianFilter::readFile(std:: string filename)
 }
 
 void medianFilter:: getFilteredArray ( std:: string inputfile) {
+	//start measuring time 
+	auto begin = std::chrono::high_resolution_clock::now() ; 
+
 	std::ifstream inputFile(inputfile) ; 
 	std::string text ; //reads in lines from input buffer
    	getline(inputFile , text) ; //reads in dimensions 
@@ -89,22 +93,25 @@ void medianFilter:: getFilteredArray ( std:: string inputfile) {
 
 
 	}	
-	
+	//end measuring time and calculate runtime 
+	auto end = std::chrono::high_resolution_clock::now(); 
+	auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end-begin); 
+
+	std::cout<<"Time taken to execute Median Filtering: " << elapsed.count() << " microseconds " <<std::endl ; 
+
 	//write array to txt file 
 	std::ofstream outfile ;
-    //inputfile.resize(inputfile.size()-4)	;
+  	outfile.open("out_"+filename);
 
-	outfile.open("out_"+filename);
-
-	outfile << width<<endl;
-	outfile << height<<endl;
+	outfile << width<< std::endl;
+	outfile << height<<std::endl;
 
 	for (int j =0 ;  j < size ; j++)
 	{
 		outfile << filteredArray[j] <<std::endl ; 
 	}	
 	outfile.close() ; 
- 
+ 	
 } 
 	
 
