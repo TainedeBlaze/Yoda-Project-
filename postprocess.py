@@ -1,24 +1,20 @@
 import numpy as np
-from PIL import image 
+from PIL import Image 
 import re 
 
 
 
 
-def convertToImage(filename): 
-    with open(filename) as f:
-        file= file.read
-
+def convertToImage(filename,width,height): 
+    textfile = open(filename, 'r')
+    data = textfile.read().splitlines() 
+    print ("size of data: " +str(len((data))))  
+    #convert to array 
+    data_array = np.array(data)
+    data_array = np.reshape(data_array, (int(width),int(height))) 
     #parse through and find all digits 
-    l = re.findall(r'\d+',s)
-
-    #convert to numpy array 
-   # data = np.array(1).reshape(width, height , 3))
-    
-    #convert to image 
-
-    #img = Image.fromarray(data , "RGB") 
-    img.save("output.png") 
+    newimage =Image.fromarray(np.uint8(data_array))  
+    newimage.save(filename.replace("_output.txt","") +"_output.png") 
 
 Running = True 
 while (Running == True): 
@@ -27,6 +23,9 @@ while (Running == True):
         quit() 
     else: 
         try:
-            convertToImage(filename) 
+            width = input("enter image width \n ") 
+            height = input("Enter image height: \n") 
+
+            convertToImage(filename,width,height) 
         except FileNotFoundError:
             print("This file does not exist, try again") 

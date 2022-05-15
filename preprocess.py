@@ -8,11 +8,11 @@ def readimage(imagename):
     width , height = img.size
     pixelarray = np.array(img) 
     pixelarray=pixelarray.reshape(-1)
-
+    dim=np.array([width,height])
     # Adding dimensions to beginning of array
-    pixelarray = np.insert(pixelarray,0,int(height)) 
-    pixelarray = np.insert(pixelarray,0,int(width))    
-    print("Image had width of" , width , " and height of" , height) 
+    pixelarray = np.concatenate((dim,pixelarray))    
+    print("Image had width of" , width , " and height of" , height)
+    print(pixelarray[0], pixelarray[1]) 
      
     img1d = np.reshape(pixelarray,-1)     
     print("Size: ", len(img1d))

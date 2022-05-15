@@ -12,7 +12,7 @@ medianFilter:: medianFilter(std::string filename):
 
 bool medianFilter::readFile(std:: string filename)
 {
-	std::ifstream inputfile(filename) ; 
+	std::ifstream inputfile(filename); 
 	if (!inputfile){
 		std::cout << "The file " << filename << " does not exist. Try again please. " << std::endl ; 
 		return false ; 
@@ -89,6 +89,7 @@ void medianFilter:: getFilteredArray ( std:: string inputfile) {
 
 
 	}	
+	
 	//write array to txt file 
 	std::ofstream outfile ;
        	inputfile.resize(inputfile.size()-4)	;
