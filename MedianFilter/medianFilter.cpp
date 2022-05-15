@@ -18,15 +18,15 @@ int main(void)
 	cout << "Enter .txt filename: ";
 	cin >> filename;
 	
-	ifstream file(filename);
+	ifstream inputfile(filename);
 	uint w;
 	uint l;
-	if (file.is_open())
-		file >> w; // width
-		file >> l; // length
+	if (inputfile.is_open())
+		inputfile >> w; // width
+		inputfile >> l; // length
 		int arr[w*l*3];
 		for (int i=0;i<w*l*3;i++){
-			file >> arr[i];
+			inputfile >> arr[i];
 		}
 	cout << ".txt file imported to 1D array" << '\n';
 	cout << arr;
@@ -248,9 +248,10 @@ int main(void)
 	//------------------------------------------------------------------------
 	//write array to txt file 
 	ofstream outfile;
-	file.resize(file.size()-4)
+	//inputfile.resize(inputfile.size()-4)
+	cout<<filename;
 
-	outfile.open(file + "_output.txt");
+	outfile.open("out_"+filename);
 
 	for (int j =0 ;  j < w*l ; j++)
 	{
