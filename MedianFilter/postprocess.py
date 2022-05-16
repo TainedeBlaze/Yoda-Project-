@@ -5,11 +5,11 @@ import re
 def convertToImage(filename): 
     textfile = open(filename, 'r')
     data = textfile.read().splitlines() 
-    width=data.pop(0)
-    height=data.pop(0)
-    print(width, height)
     print ("size of data: " +str(len((data))))  
     #convert to array 
+    width=data.pop(0)
+    height=data.pop(0)
+    
     data_array = np.array(data)
     data_array = np.reshape(data_array, (int(width),int(height))) 
     #parse through and find all digits 
