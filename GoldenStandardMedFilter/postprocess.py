@@ -7,10 +7,9 @@ def convertToImage(filename):
     data = textfile.read().splitlines() 
     print ("size of data: " +str(len((data))))  
     #convert to array 
-    width=data[0]
-    height=data[1]
-    data.pop(0)
-    data.pop(0) 
+    width=data.pop(0)
+    height=data.pop(0)
+    
     data_array = np.array(data)
     data_array = np.reshape(data_array, (int(width),int(height))) 
     #parse through and find all digits 
