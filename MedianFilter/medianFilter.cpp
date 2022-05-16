@@ -9,10 +9,13 @@
 #include <stdlib.h>
 #include <vector>
 #include <algorithm>
+#include <math.h>
 using namespace std;
 
 int main(void)
 {	
+	//int d=pow(2,4);
+	//printf("%d",d);
 	//Read pixels from .txt file
 	string filename;
 	cout << "Enter .txt filename: ";

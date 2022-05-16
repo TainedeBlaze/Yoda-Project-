@@ -49,7 +49,7 @@ __kernel void MedianFilter(__global int* arr,
 		filtered[n]=m;
 		//printf("n=%d, m=%d\n",n,m);
 	}
-
+	//
 	// for (int i=0;i<3;i++){
 	// 	med[i+4]=filtered[i];
 	// }
