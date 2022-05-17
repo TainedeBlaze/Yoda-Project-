@@ -72,7 +72,8 @@ void edgeDetector:: getFilteredArray ( std:: string inputfile) {
 	std::cout << "pixel Array size: " <<pixelArray.size() << std::endl ; 
 	
 	//do the filtering and output to array
-	int filteredArray[size] ; 
+	float filteredArray[size] ; 
+	int filteredInt[size];
 	for (int i =0 ; i < size ; i++)
 	{	//dealing with outermost pixels 
 		if ( i < width || i > (size-width)) {
@@ -95,29 +96,25 @@ void edgeDetector:: getFilteredArray ( std:: string inputfile) {
 			filter[7]=pixelArray[i+width];
 			filter[8]=pixelArray[i+width+1];
 
-			//appending median value
-			//int n = sizeof(filter); 
-			//std::sort(filter,filter +n);
-		       	//filteredArray[i]=filter[5] ;
-			
+			//Calculating the new pixel 			
 			filteredArray[i] = filter[0]*std::sqrt(Gx[0]*Gx[0]+Gy[0]*Gy[0]) + filter[1]*std::sqrt(Gx[1]*Gx[1]+Gy[1]*Gy[1]) 
 			+ filter[2]*std::sqrt(Gx[2]*Gx[2]+Gy[2]*Gy[2]) + filter[3]*std::sqrt(Gx[3]*Gx[3]+Gy[3]*Gy[3]) 
 			+ filter[4]*std::sqrt(Gx[4]*Gx[4]+Gy[4]*Gy[4]) + filter[5]*std::sqrt(Gx[5]*Gx[5]+Gy[5]*Gy[5]) 
 			+ filter[6]*std::sqrt(Gx[6]*Gx[6]+Gy[6]*Gy[6]) + filter[7]*std::sqrt(Gx[7]*Gx[7]+Gy[7]*Gy[7]) 
 			+ filter[8]*std::sqrt(Gx[8]*Gx[8]+Gy[8]*Gy[8]) ;
 
-			//filteredArray[i] = std::abs(filter[0]*Gx[0] + filter[1]*Gx[1] + filter[2]*Gx[2] + filter[3]*Gx[3] + filter[4]*Gx[4] + filter[5]*Gx[5] + filter[6]*Gx[6] + filter[7]*Gx[7] + filter[8]*Gx[8])
-			//+ std::abs(filter[0]*Gy[0] + filter[1]*Gy[1] + filter[2]*Gy[2] + filter[3]*Gy[3] + filter[4]*Gy[4] + filter[5]*Gy[5] + filter[6]*Gy[6] + filter[7]*Gy[7] + filter[8]*Gy[8]);
-			
-			if (filteredArray[i] > 255){
-				filteredArray[i] = 0;
-			}
-			else {
-				filteredArray[i] = filteredArray[i];	
-			}
-			//filteredArray[i] = std::abs(filter[0]*Gx[0] + filter[1]*Gx[1] + filter[2]*Gx[2] + filter[3]*Gx[3] + filter[4]*Gx[4] + filter[5]*Gx[5] + filter[6]*Gx[6] + filter[7]*Gx[7] + filter[8]*Gx[8])
-			//+ std::abs(filter[0]*Gy[0] + filter[1]*Gy[1] + filter[2]*Gy[2] + filter[3]*Gy[3] + filter[4]*Gy[4] + filter[5]*Gy[5] + filter[6]*Gy[6] + filter[7]*Gy[7] + filter[8]*Gy[8]);
 
+			//Type casts values in filteredArray[i] to integer values in filteredInt[i].
+			filteredInt[i] = (int)filteredArray[i];
+			
+			//Deals with pixels larger than 255 to wrap around to 0.
+			if (filteredInt[i] > 255){
+				filteredInt[i] = 0; 
+			}
+			//If values do not exceed 255, they maintain their original result.
+			else {
+				filteredInt[i] = filteredInt[i];	
+			}
 
 		}
 
@@ -138,7 +135,7 @@ void edgeDetector:: getFilteredArray ( std:: string inputfile) {
 
 	for (int j =0 ;  j < size ; j++)
 	{
-		outfile << filteredArray[j] <<std::endl ; 
+		outfile << filteredInt[j] <<std::endl ; 
 	}	
 	outfile.close() ; 
  	
