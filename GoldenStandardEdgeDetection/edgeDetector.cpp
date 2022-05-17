@@ -108,7 +108,7 @@ void edgeDetector:: getFilteredArray ( std:: string inputfile) {
 			filteredInt[i] = (int)filteredArray[i];
 			
 			//Deals with pixels larger than 255 to wrap around to 0.
-			if (filteredInt[i] > 255){
+			if (filteredInt[i] > 255 || filteredInt[i] < 70){
 				filteredInt[i] = 0; 
 			}
 			//If values do not exceed 255, they maintain their original result.
