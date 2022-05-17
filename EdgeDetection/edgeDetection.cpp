@@ -17,9 +17,9 @@ int main(void)
 	int y=sqrt(4);
 	printf("%d",y);
 	string filename;
-	// cout << "Enter .txt filename: ";
-	// cin >> filename;
-	filename="insta.txt";
+	cout << "Enter .txt filename: ";
+	cin >> filename;
+
 	ifstream inputfile(filename);
 	uint w;
 	uint l;
