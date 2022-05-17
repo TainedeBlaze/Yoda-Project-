@@ -14,6 +14,7 @@ using namespace std;
 int main(void)
 {	
 	//Read pixels from .txt file
+<<<<<<< HEAD
 	int y=sqrt(4);
 	printf("%d",y);
 	string filename;
@@ -38,6 +39,28 @@ int main(void)
 	// int l=3;
 
 	int sz=sizeof(arr)/sizeof(arr[0]);
+=======
+	string filename;
+	cout << "Enter .txt filename: ";
+	cin >> filename;
+	
+	ifstream inputfile(filename);
+	uint w;
+	uint l;
+	if (inputfile.is_open())
+		inputfile >> w; // width
+		inputfile >> l; // length
+		int arr[w*l*3];
+		for (int i=0;i<w*l*3;i++){
+			inputfile >> arr[i];
+		}
+	cout << ".txt file imported to 1D array" << '\n';
+	//cout << arr[0];
+	// int arr[]={2,4,7,30,46,23,23,65,86,34,57,3,34,87,94,123,143,67,23,43,197,33,76,97,34,78,54};
+	int sz=sizeof(arr)/sizeof(arr[0]);
+	cout << "sz: " <<sz <<"\n";
+
+>>>>>>> 8c89e008b274b42be286432801c2d5bb8ad4d5c6
 	/* OpenCL structures you need to program*/
 	//cl_device_id device; step 1 and 2 
 	//cl_context context;  step 3
@@ -49,7 +72,7 @@ int main(void)
 	 
 	 
 	//Initialize Buffers, memory space the allows for communication between the host and the target device
-	cl_mem RGB_buffer, width_buffer, length_buffer,grayscale_buffer, filtered_buffer;
+	cl_mem RGB_buffer, width_buffer, length_buffer,grayscale_buffer, detected_buffer;
 
 	//***step 1*** Get the platform you want to use
 	//cl_int clGetPlatformIDs(cl_uint num_entries,
@@ -187,7 +210,7 @@ int main(void)
 	size_t local_size = 1; //Size of each work group
 	cl_int num_groups = global_size/local_size; //number of work groups needed
 
-	int filtered[global_size]; //output array
+	int detected[global_size]; //output array
 	int grayscale[global_size];
 
 	//Buffer (memory block) that both the host and target device can access 
@@ -203,7 +226,7 @@ int main(void)
 	length_buffer = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(uint), &l, &err);
     //Stores outputs from kernel so host can retrieve what the kernel has calculated.
 	grayscale_buffer = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, global_size*sizeof(int), grayscale, &err);
-	filtered_buffer = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, global_size*sizeof(int), filtered, &err);
+	detected_buffer = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, global_size*sizeof(int), detected, &err);
 
 
 	//------------------------------------------------------------------------
@@ -218,7 +241,7 @@ int main(void)
 	clSetKernelArg(kernel, 1, sizeof(cl_mem), &width_buffer);
 	clSetKernelArg(kernel, 2, sizeof(cl_mem), &length_buffer);
 	clSetKernelArg(kernel, 3, sizeof(cl_mem), &grayscale_buffer);
-	clSetKernelArg(kernel, 4, sizeof(cl_mem), &filtered_buffer);
+	clSetKernelArg(kernel, 4, sizeof(cl_mem), &detected_buffer);
 	
 	//------------------------------------------------------------------------
 
@@ -244,12 +267,22 @@ int main(void)
 	err = clEnqueueReadBuffer(queue, filtered_buffer, CL_TRUE, 0, sizeof(filtered), filtered, 0, NULL, NULL);
 	
 	//***Step 13*** Check that the host was able to retrieve the output data from the output buffer
-	// printf("\nOutput in the filtered \n");
-	//   for(int j=0; j<global_size; j++) {
-	//   	printf("grayscale[%d]=%d\n",j ,grayscale[j]);
-	//   }
-	// for(int k=0;k<sz;k++){
-		//printf("arr[%d] = %d\n",k,arr[k]);}
+	
+	//write array to txt file 
+	ofstream outfile;
+	//inputfile.resize(inputfile.size()-4)
+	cout<<filename;
+
+	outfile.open("out_"+filename);
+	outfile << w<<endl;
+	outfile << l<<endl;
+	for (int j =0 ;  j < w*l; j++)
+	{
+		
+		outfile << detected[j] <<std::endl; 
+	}	
+	outfile.close();
+
 	//------------------------------------------------------------------------
 	ofstream outfile;
 	outfile.open("out_"+filename);
@@ -264,7 +297,7 @@ int main(void)
 	clFinish(queue);	
 	clReleaseKernel(kernel);
 	clReleaseMemObject(RGB_buffer);
-	clReleaseMemObject(filtered_buffer);
+	clReleaseMemObject(detected_buffer);
 	clReleaseMemObject(width_buffer);
 	clReleaseMemObject(length_buffer);
 	clReleaseMemObject(grayscale_buffer);
