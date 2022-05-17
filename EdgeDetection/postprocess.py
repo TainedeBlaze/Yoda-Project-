@@ -11,8 +11,11 @@ def convertToImage(filename):
     height=data.pop(0)
     
     data_array = np.array(data)
+    new_data=np.uint8(data_array)
+    print(np.ptp(new_data))
     data_array = np.reshape(data_array, (int(width),int(height))) 
-    #parse through and find all digits 
+    #parse through and find all digits
+    
     newimage =Image.fromarray(np.uint8(data_array))  
     newimage.save(filename.replace(".txt","") +".png") 
 
