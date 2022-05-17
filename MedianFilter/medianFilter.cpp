@@ -250,10 +250,9 @@ int main(void)
 		//printf("arr[%d] = %d\n",k,arr[k]);}
 	//------------------------------------------------------------------------
 	//write array to txt file 
-	ofstream outfile;
+	
 	//inputfile.resize(inputfile.size()-4)
-	cout<<filename;
-
+	ofstream outfile;
 	outfile.open("out_"+filename);
 	outfile << w<<endl;
 	outfile << l<<endl;
