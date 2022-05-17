@@ -1,14 +1,14 @@
-//Taine de Buys 
-//Sequential Median Filter 
-//2022/05/12
+//Taine de Buys & Michael Altshuler
+//Sequential Edge Detection 
+//2022/05/16
 
 #include "edgeDetector.h"
 #include <fstream> 
 #include <algorithm>
 #include <chrono> 
-
 #include <iostream>
 #include <cstdlib>
+#include <cmath>
 
 edgeDetector:: edgeDetector(std::string filename):
 	filename(filename)
@@ -100,8 +100,25 @@ void edgeDetector:: getFilteredArray ( std:: string inputfile) {
 			//std::sort(filter,filter +n);
 		       	//filteredArray[i]=filter[5] ;
 			
-			filteredArray[i] = std::abs(filter[0]*Gx[0] + filter[1]*Gx[1] + filter[2]*Gx[2] + filter[3]*Gx[3] + filter[4]*Gx[4] + filter[5]*Gx[5] + filter[6]*Gx[6] + filter[7]*Gx[7] + filter[8]*Gx[8])
-			+ std::abs(filter[0]*Gy[0] + filter[1]*Gy[1] + filter[2]*Gy[2] + filter[3]*Gy[3] + filter[4]*Gy[4] + filter[5]*Gy[5] + filter[6]*Gy[6] + filter[7]*Gy[7] + filter[8]*Gy[8]);
+			filteredArray[i] = filter[0]*std::sqrt(Gx[0]*Gx[0]+Gy[0]*Gy[0]) + filter[1]*std::sqrt(Gx[1]*Gx[1]+Gy[1]*Gy[1]) 
+			+ filter[2]*std::sqrt(Gx[2]*Gx[2]+Gy[2]*Gy[2]) + filter[3]*std::sqrt(Gx[3]*Gx[3]+Gy[3]*Gy[3]) 
+			+ filter[4]*std::sqrt(Gx[4]*Gx[4]+Gy[4]*Gy[4]) + filter[5]*std::sqrt(Gx[5]*Gx[5]+Gy[5]*Gy[5]) 
+			+ filter[6]*std::sqrt(Gx[6]*Gx[6]+Gy[6]*Gy[6]) + filter[7]*std::sqrt(Gx[7]*Gx[7]+Gy[7]*Gy[7]) 
+			+ filter[8]*std::sqrt(Gx[8]*Gx[8]+Gy[8]*Gy[8]) ;
+
+			//filteredArray[i] = std::abs(filter[0]*Gx[0] + filter[1]*Gx[1] + filter[2]*Gx[2] + filter[3]*Gx[3] + filter[4]*Gx[4] + filter[5]*Gx[5] + filter[6]*Gx[6] + filter[7]*Gx[7] + filter[8]*Gx[8])
+			//+ std::abs(filter[0]*Gy[0] + filter[1]*Gy[1] + filter[2]*Gy[2] + filter[3]*Gy[3] + filter[4]*Gy[4] + filter[5]*Gy[5] + filter[6]*Gy[6] + filter[7]*Gy[7] + filter[8]*Gy[8]);
+			
+			if (filteredArray[i] > 255){
+				filteredArray[i] = 0;
+			}
+			else {
+				filteredArray[i] = filteredArray[i];	
+			}
+			//filteredArray[i] = std::abs(filter[0]*Gx[0] + filter[1]*Gx[1] + filter[2]*Gx[2] + filter[3]*Gx[3] + filter[4]*Gx[4] + filter[5]*Gx[5] + filter[6]*Gx[6] + filter[7]*Gx[7] + filter[8]*Gx[8])
+			//+ std::abs(filter[0]*Gy[0] + filter[1]*Gy[1] + filter[2]*Gy[2] + filter[3]*Gy[3] + filter[4]*Gy[4] + filter[5]*Gy[5] + filter[6]*Gy[6] + filter[7]*Gy[7] + filter[8]*Gy[8]);
+
+
 		}
 
 
