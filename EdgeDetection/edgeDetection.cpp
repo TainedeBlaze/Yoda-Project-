@@ -17,9 +17,9 @@ int main(void)
 	int y=sqrt(4);
 	printf("%d",y);
 	string filename;
-	//cout << "Enter .txt filename: ";
-	//cin >> filename;
-	filename="instagram.txt";
+	// cout << "Enter .txt filename: ";
+	// cin >> filename;
+	filename="insta.txt";
 	ifstream inputfile(filename);
 	uint w;
 	uint l;
@@ -34,8 +34,9 @@ int main(void)
 	
 	//int arr[]={2,4,7,30,46,23,23,65,86,34,57,3,34,87,94,123,143,67,23,43,197,33,76,97,34,78,54};
 	//int sz=sizeof(arr)/sizeof(arr[0]);
-	//int w=3;
-	//int l=3;
+	// int w=3;
+	// int l=3;
+
 	int sz=sizeof(arr)/sizeof(arr[0]);
 	/* OpenCL structures you need to program*/
 	//cl_device_id device; step 1 and 2 
