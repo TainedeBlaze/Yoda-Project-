@@ -261,15 +261,6 @@ int main(void)
 	outfile.close();
 
 	//------------------------------------------------------------------------
-	ofstream outfile;
-	outfile.open("out_"+filename);
-	outfile << w<<endl;
-	outfile << l<<endl;
-	for (int j =0 ;  j < w*l; j++)
-	{
-		outfile << detected[j] <<std::endl; 
-	}	
-	outfile.close(); 
 	//***Step 14*** Deallocate resources
 	clFinish(queue);	
 	clReleaseKernel(kernel);
