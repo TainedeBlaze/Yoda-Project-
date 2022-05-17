@@ -14,7 +14,6 @@ using namespace std;
 int main(void)
 {	
 	//Read pixels from .txt file
-<<<<<<< HEAD
 	int y=sqrt(4);
 	printf("%d",y);
 	string filename;
@@ -39,28 +38,6 @@ int main(void)
 	// int l=3;
 
 	int sz=sizeof(arr)/sizeof(arr[0]);
-=======
-	string filename;
-	cout << "Enter .txt filename: ";
-	cin >> filename;
-	
-	ifstream inputfile(filename);
-	uint w;
-	uint l;
-	if (inputfile.is_open())
-		inputfile >> w; // width
-		inputfile >> l; // length
-		int arr[w*l*3];
-		for (int i=0;i<w*l*3;i++){
-			inputfile >> arr[i];
-		}
-	cout << ".txt file imported to 1D array" << '\n';
-	//cout << arr[0];
-	// int arr[]={2,4,7,30,46,23,23,65,86,34,57,3,34,87,94,123,143,67,23,43,197,33,76,97,34,78,54};
-	int sz=sizeof(arr)/sizeof(arr[0]);
-	cout << "sz: " <<sz <<"\n";
-
->>>>>>> 8c89e008b274b42be286432801c2d5bb8ad4d5c6
 	/* OpenCL structures you need to program*/
 	//cl_device_id device; step 1 and 2 
 	//cl_context context;  step 3
@@ -264,7 +241,7 @@ int main(void)
 
 	//***Step 12*** Allows the host to read from the buffer object 
 	//TODO code 12: read the output values from the output buffer
-	err = clEnqueueReadBuffer(queue, filtered_buffer, CL_TRUE, 0, sizeof(filtered), filtered, 0, NULL, NULL);
+	err = clEnqueueReadBuffer(queue, detected_buffer, CL_TRUE, 0, sizeof(detected), detected, 0, NULL, NULL);
 	
 	//***Step 13*** Check that the host was able to retrieve the output data from the output buffer
 	
@@ -290,7 +267,7 @@ int main(void)
 	outfile << l<<endl;
 	for (int j =0 ;  j < w*l; j++)
 	{
-		outfile << filtered[j] <<std::endl; 
+		outfile << detected[j] <<std::endl; 
 	}	
 	outfile.close(); 
 	//***Step 14*** Deallocate resources
