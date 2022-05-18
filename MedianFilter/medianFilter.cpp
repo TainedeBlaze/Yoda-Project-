@@ -36,10 +36,10 @@ int main(void)
 	cout << ".txt file imported to 1D array" << '\n';
 	//cout << arr[0];
 
-	// int arr[]={2,4,7,30,46,23,23,65,86,34,57,3,34,87,94,123,143,67,23,43,197,33,76,97,34,78,54};
+	//int arr[]={2,4,7,30,46,23,23,65,86,34,57,3,34,87,94,123,143,67,23,43,197,33,76,97,34,78,54};
 	
-	// int w=3;
-	// int l=3;
+	//int w=3;
+	//int l=3;
 	auto begin = std::chrono::high_resolution_clock::now() ;
 	int sz=sizeof(arr)/sizeof(arr[0]);
 	//cout << "sz: " <<sz <<"\n";
