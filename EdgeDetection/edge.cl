@@ -32,6 +32,9 @@ __kernel void Edge(__global int* arr,
 	
 	detected[n]=grayscale[n];
 	
+	// int Ex[9]={-1,0,1,-1,0,1,-1,0,1};
+	// int temp[9];
+	// int Ey[9]={1,1,1,0,0,0,-1,-1,-1};
 	int Ex[9]={-1,0,1,-2,0,2,-1,0,1};
 	int temp[9];
 	int Ey[9]={-1,-2,-1,0,0,0,1,2,1};
@@ -68,6 +71,10 @@ __kernel void Edge(__global int* arr,
 		if (pix>255){
 			pix=0;
 		}
+		else if (pix<110){
+			pix=0;
+		}
+
 		//pix=abs(v)+abs(h);//sqrt(pix);
 		//barrier(CLK_GLOBAL_MEM_FENCE);
 		detected[n]=(int)pix;

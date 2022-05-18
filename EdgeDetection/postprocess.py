@@ -9,6 +9,7 @@ def convertToImage(filename):
     #convert to array 
     width=data.pop(0)
     height=data.pop(0)
+    print("width")
     # for i in range(98696,98712):
         # print(data[i])
     data_array = np.array(data)
@@ -26,7 +27,7 @@ def convertToImage(filename):
     #for i in range(98690,98712):
      #   print(data_array[i])
     #print(np.ptp(new_data))
-    data_array = np.reshape(data_array, (int(width),int(height))) 
+    data_array = np.reshape(data_array, (int(height),int(width))) 
     #parse through and find all digits
     
     newimage =Image.fromarray(np.uint8(data_array))
