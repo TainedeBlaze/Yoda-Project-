@@ -86,11 +86,16 @@ void medianFilter:: getFilteredArray ( std:: string inputfile) {
 			filter[8]=pixelArray[i+width+1];
 
 			//appending median value
-			int n = sizeof(filter); 
-			std::sort(filter,filter +n);
-		       	filteredArray[i]=filter[5] ;
-		}
-
+			for (int j=0;j<8;j++){
+				int temp=filter[j];
+				if (filter[j] > filter[j+1]){
+					filter[j]=filter[j+1];
+					filter[j+1]=temp;
+					j=-1;
+				}
+		    
+			}
+			filteredArray[i]=filter[4] ;
 
 	}	
 	//end measuring time and calculate runtime 

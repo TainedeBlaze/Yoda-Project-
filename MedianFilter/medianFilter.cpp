@@ -10,7 +10,9 @@
 #include <vector>
 #include <algorithm>
 #include <math.h>
+#include <chrono>
 using namespace std;
+using namespace std::chrono;
 
 int main(void)
 {	
@@ -33,9 +35,14 @@ int main(void)
 		}
 	cout << ".txt file imported to 1D array" << '\n';
 	//cout << arr[0];
-	// int arr[]={2,4,7,30,46,23,23,65,86,34,57,3,34,87,94,123,143,67,23,43,197,33,76,97,34,78,54};
+
+	//int arr[]={2,4,7,30,46,23,23,65,86,34,57,3,34,87,94,123,143,67,23,43,197,33,76,97,34,78,54};
+	
+	//int w=3;
+	//int l=3;
+	auto begin = std::chrono::high_resolution_clock::now() ;
 	int sz=sizeof(arr)/sizeof(arr[0]);
-	cout << "sz: " <<sz <<"\n";
+	//cout << "sz: " <<sz <<"\n";
 
 	/* OpenCL structures you need to program*/
 	//cl_device_id device; step 1 and 2 
@@ -69,16 +76,16 @@ int main(void)
 	//Select the platform you would like to use in this program (change index to do this). If you would like to see all available platforms run platform.cpp.
 	cl_platform_id platform = platforms[0];
 	
-	//Outputs the information of the chosen platform
-	char* Info = (char*)malloc(0x1000*sizeof(char));
-	clGetPlatformInfo(platform, CL_PLATFORM_NAME      , 0x1000, Info, 0);
-	printf("Name      : %s\n", Info);
-	clGetPlatformInfo(platform, CL_PLATFORM_VENDOR    , 0x1000, Info, 0);
-	printf("Vendor    : %s\n", Info);
-	clGetPlatformInfo(platform, CL_PLATFORM_VERSION   , 0x1000, Info, 0);
-	printf("Version   : %s\n", Info);
-	clGetPlatformInfo(platform, CL_PLATFORM_PROFILE   , 0x1000, Info, 0);
-	printf("Profile   : %s\n", Info);
+	// //Outputs the information of the chosen platform
+	// char* Info = (char*)malloc(0x1000*sizeof(char));
+	// clGetPlatformInfo(platform, CL_PLATFORM_NAME      , 0x1000, Info, 0);
+	// printf("Name      : %s\n", Info);
+	// clGetPlatformInfo(platform, CL_PLATFORM_VENDOR    , 0x1000, Info, 0);
+	// printf("Vendor    : %s\n", Info);
+	// clGetPlatformInfo(platform, CL_PLATFORM_VERSION   , 0x1000, Info, 0);
+	// printf("Version   : %s\n", Info);
+	// clGetPlatformInfo(platform, CL_PLATFORM_PROFILE   , 0x1000, Info, 0);
+	// printf("Profile   : %s\n", Info);
 	
 	//------------------------------------------------------------------------
 
@@ -252,6 +259,11 @@ int main(void)
 	//write array to txt file 
 	
 	//inputfile.resize(inputfile.size()-4)
+	auto end = std::chrono::high_resolution_clock::now(); 
+	auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end-begin); 
+
+	std::cout<<"Time taken to execute Median Filtering: " << elapsed.count() << " microseconds " <<std::endl ;
+
 	ofstream outfile;
 	outfile.open("out_"+filename);
 	outfile << w<<endl;
