@@ -88,7 +88,7 @@ void medianFilter:: getFilteredArray ( std:: string inputfile) {
 			//appending median value
 			int n = sizeof(filter); 
 			std::sort(filter,filter +n);
-		       	filteredArray[i]=filter[5] ;
+		       	filteredArray[i]=filter[4] ;
 		}
 
 
