@@ -9,6 +9,7 @@
 #include <vector>
 #include <algorithm>
 #include <math.h>
+#include <chrono> 
 using namespace std;
 
 int main(void)
@@ -47,7 +48,7 @@ int main(void)
 	
 	//------------------------------------------------------------------------
 	 
-	 
+	auto begin = std::chrono::high_resolution_clock::now(); 
 	//Initialize Buffers, memory space the allows for communication between the host and the target device
 	cl_mem RGB_buffer, width_buffer, length_buffer,grayscale_buffer, detected_buffer;
 
@@ -243,12 +244,18 @@ int main(void)
 	//TODO code 12: read the output values from the output buffer
 	err = clEnqueueReadBuffer(queue, detected_buffer, CL_TRUE, 0, sizeof(detected), detected, 0, NULL, NULL);
 	
+	auto end = std::chrono::high_resolution_clock::now(); 
+	auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end-begin); 
+
+	std::cout<<"Time taken to execute Median Filtering: " << elapsed.count() << " microseconds " <<std::endl ;
 	//***Step 13*** Check that the host was able to retrieve the output data from the output buffer
 	
 	//write array to txt file 
 	ofstream outfile;
 	//inputfile.resize(inputfile.size()-4)
 	cout<<filename;
+
+	
 
 	outfile.open("out_"+filename);
 	outfile << w<<endl;

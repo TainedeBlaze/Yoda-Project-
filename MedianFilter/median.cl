@@ -17,7 +17,7 @@ __kernel void MedianFilter(__global int* arr,
 	//output[global_addr] = global_addr*arg1 + arg2;
 	grayscale[n]=(arr[n*3]+arr[n*3+1]+arr[n*3+2]);
 	//if (grayscale[n]!=0){
-	printf("output[%d] = %d\n", n, grayscale[n]);
+	//printf("output[%d] = %d\n", n, grayscale[n]);
 	barrier(CLK_GLOBAL_MEM_FENCE); // Wait for summation of all RGB pixels
 	
 	filtered[n]=grayscale[n];
@@ -40,8 +40,8 @@ __kernel void MedianFilter(__global int* arr,
 			}
     	}
 		
-		filtered[n]=med[5];
-		printf("n=%d, m=%d\n",n,med[4]);
+		filtered[n]=med[4];
+		//printf("n=%d, m=%d\n",n,med[4]);
 
 	}
 	//
