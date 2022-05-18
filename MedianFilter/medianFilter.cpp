@@ -76,16 +76,16 @@ int main(void)
 	//Select the platform you would like to use in this program (change index to do this). If you would like to see all available platforms run platform.cpp.
 	cl_platform_id platform = platforms[0];
 	
-	// //Outputs the information of the chosen platform
-	// char* Info = (char*)malloc(0x1000*sizeof(char));
-	// clGetPlatformInfo(platform, CL_PLATFORM_NAME      , 0x1000, Info, 0);
-	// printf("Name      : %s\n", Info);
-	// clGetPlatformInfo(platform, CL_PLATFORM_VENDOR    , 0x1000, Info, 0);
-	// printf("Vendor    : %s\n", Info);
-	// clGetPlatformInfo(platform, CL_PLATFORM_VERSION   , 0x1000, Info, 0);
-	// printf("Version   : %s\n", Info);
-	// clGetPlatformInfo(platform, CL_PLATFORM_PROFILE   , 0x1000, Info, 0);
-	// printf("Profile   : %s\n", Info);
+	//Outputs the information of the chosen platform
+	char* Info = (char*)malloc(0x1000*sizeof(char));
+	clGetPlatformInfo(platform, CL_PLATFORM_NAME      , 0x1000, Info, 0);
+	printf("Name      : %s\n", Info);
+	clGetPlatformInfo(platform, CL_PLATFORM_VENDOR    , 0x1000, Info, 0);
+	printf("Vendor    : %s\n", Info);
+	clGetPlatformInfo(platform, CL_PLATFORM_VERSION   , 0x1000, Info, 0);
+	printf("Version   : %s\n", Info);
+	clGetPlatformInfo(platform, CL_PLATFORM_PROFILE   , 0x1000, Info, 0);
+	printf("Profile   : %s\n", Info);
 	
 	//------------------------------------------------------------------------
 

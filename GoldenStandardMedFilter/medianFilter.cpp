@@ -53,49 +53,66 @@ void medianFilter:: getFilteredArray ( std:: string inputfile) {
 	std::cout << "Temp Array size: " <<tempArray.size() << std::endl ; 
 	//populate array with grayscale pixel values 
 	std::vector<int>pixelArray ; 
+
 	for (int i = 0 ; i <tempArray.size() ; i+=3) 
 	{
 		int pixel = 0 ; 
 		pixel = tempArray[i]+tempArray[i+1] + tempArray[i+2] ;//sum RGB values 
 		pixel = pixel/3 ; //divide into 1 value 
-		pixelArray.push_back(pixel) ; 
+		pixelArray.push_back(pixel) ;
+		printf("%d ",pixel);
 	}
-	std::cout << "pixel Array size: " <<pixelArray.size() << std::endl ; 
+	std::cout << "pixel Array size: " <<pixelArray.size() << std::endl ;
+	 
 	//do the filtering and output to array
+
 	int filteredArray[size] ; 
 	for (int i =0 ; i < size ; i++)
 	{	//dealing with outermost pixels 
+		// if (pixelArray[i]==0){
+		// 	printf("%d ",i);
+		// }
+
 		if ( i < width || i > (size-width)) {
 			filteredArray[i]= pixelArray[i];  
 		}
 		else if ( i % width == 0 || i %width == (width-1)) {
-			filteredArray[i] = pixelArray[i] ; 
+			filteredArray[i] = pixelArray[i]; 
 		}
 		else 
 		{
 			//create temp array to perform filtering (3 by 3) 
 			int filter[9] ; 
-			filter[0]=pixelArray[i-width-1];
-			filter[1]=pixelArray[i-width];
-			filter[2]=pixelArray[i-width+1];
-			filter[3]=pixelArray[i-1];
-			filter[4]=pixelArray[i];
-			filter[5]=pixelArray[i+1];
-			filter[6]=pixelArray[i+width-1];
-			filter[7]=pixelArray[i+width];
-			filter[8]=pixelArray[i+width+1];
+			for (int k=-1;k<2;k++){
+				filter[k+1] = pixelArray[k+i];
+				filter[k+4] = pixelArray[k-width+i];
+				filter[k+7] = pixelArray[i+width+k];
+			}
+			// filter[0]=pixelArray[i-width-1];
+			// filter[1]=pixelArray[i-width];
+			// filter[2]=pixelArray[i-width+1];
+			// filter[3]=pixelArray[i-1];
+			// filter[4]=pixelArray[i];
+			// filter[5]=pixelArray[i+1];
+			// filter[6]=pixelArray[i+width-1];
+			// filter[7]=pixelArray[i+width];
+			// filter[8]=pixelArray[i+width+1];
+
+			for (int j=0;j<8;j++){
+			int temp=filter[j];
+			if (filter[j] > filter[j+1]){
+				filter[j]=filter[j+1];
+				filter[j+1]=temp;
+				j=-1;
+			}
+    		}	
 
 			//appending median value
-			for (int j=0;j<8;j++){
-				int temp=filter[j];
-				if (filter[j] > filter[j+1]){
-					filter[j]=filter[j+1];
-					filter[j+1]=temp;
-					j=-1;
-				}
-		    
-			}
-			filteredArray[i]=filter[4] ;
+			// int n = sizeof(filter); 
+			// std::sort(filter,filter +n);
+		    filteredArray[i]=filter[4] ;
+		}
+
 
 	}	
 	//end measuring time and calculate runtime 
