@@ -20,7 +20,7 @@ def comparefile(filename1 , filename2) :
             break 
     f1.close()
     f2.close()
-
+    print("Done") 
 
 
 
