@@ -34,8 +34,8 @@ bool edgeDetector::readFile(std:: string filename)
 void edgeDetector:: getFilteredArray ( std:: string inputfile) {
 
 	//defining Gx and Gy sobel filter arrays
-	int Gx[9] = {-1, 0, 1, -2, 0, 2, -1, 0, 1};
-	int Gy[9] = {-1, -2, -1, 0, 0, 0, 1, 2, 1};
+	int Gy[9]={-1,-2,-1,0,0,0,1,2,1};
+	int Gx[9]={-1,0,1,-2,0,2,-1,0,1};
 
 	//start measuring time 
 	auto begin = std::chrono::high_resolution_clock::now() ; 
@@ -61,71 +61,99 @@ void edgeDetector:: getFilteredArray ( std:: string inputfile) {
 	}	
 	std::cout << "Temp Array size: " <<tempArray.size() << std::endl ; 
 	//populate array with grayscale pixel values 
-	std::vector<int>pixelArray ; 
-	for (int i = 0 ; i <tempArray.size() ; i+=3) 
-	{
-		int pixel = 0 ; 
-		pixel = tempArray[i]+tempArray[i+1] + tempArray[i+2] ;//sum RGB values 
-		pixel = pixel/3 ; //divide into 1 value 
-		pixelArray.push_back(pixel) ; 
-	}
-	std::cout << "pixel Array size: " <<pixelArray.size() << std::endl ; 
+	// std::vector<int>pixelArray ; 
+	// for (int i = 0 ; i <tempArray.size() ; i+=3) 
+	// {
+	// 	int pixel = 0 ; 
+	// 	pixel = tempArray[i]+tempArray[i+1] + tempArray[i+2] ;//sum RGB values 
+	// 	pixel = pixel/3 ; //divide into 1 value 
+	// 	pixelArray.push_back(pixel) ; 
+	// }
+	// std::cout << "pixel Array size: " <<pixelArray.size() << std::endl ; 
 	
 	//do the filtering and output to array
-	float filteredArray[size] ; 
-	int filteredInt[size];
-	for (int i =0 ; i < size ; i++)
-	{	//dealing with outermost pixels 
-		if ( i < width || i > (size-width)) {
-			filteredArray[i]= pixelArray[i];  
+	//float filteredArray[size] ; 
+	int detected[size];
+	for (int i =0 ; i < size ; i++){	
+		
+		uint col=i%width;
+		uint row=(i-col)/height;
+		bool side=(row==0 || row==(height-1) || col==0 || col==(width-1));
+		
+		float v=0;
+		float h=0;
+		float pix;
+		if (side){
+			detected[i]=(tempArray[3*i]+tempArray[3*i+1]+tempArray[3*i+2])/3;
 		}
-		else if ( i % width == 0 || i %width == (width-1)) {
-			filteredArray[i] = pixelArray[i] ; 
-		}
-		else 
-		{
-			//create temp array to perform filtering (3 by 3) 
-			int filter[9] ; 
-			filter[0]=pixelArray[i-width-1];
-			filter[1]=pixelArray[i-width];
-			filter[2]=pixelArray[i-width+1];
-			filter[3]=pixelArray[i-1];
-			filter[4]=pixelArray[i];
-			filter[5]=pixelArray[i+1];
-			filter[6]=pixelArray[i+width-1];
-			filter[7]=pixelArray[i+width];
-			filter[8]=pixelArray[i+width+1];
-
-			//Calculating the new pixel 			
-			//filteredArray[i] = filter[0]*std::sqrt(Gx[0]*Gx[0]+Gy[0]*Gy[0]) + filter[1]*std::sqrt(Gx[1]*Gx[1]+Gy[1]*Gy[1]) 
-			// + filter[2]*std::sqrt(Gx[2]*Gx[2]+Gy[2]*Gy[2]) + filter[3]*std::sqrt(Gx[3]*Gx[3]+Gy[3]*Gy[3]) 
-			// + filter[4]*std::sqrt(Gx[4]*Gx[4]+Gy[4]*Gy[4]) + filter[5]*std::sqrt(Gx[5]*Gx[5]+Gy[5]*Gy[5]) 
-			// + filter[6]*std::sqrt(Gx[6]*Gx[6]+Gy[6]*Gy[6]) + filter[7]*std::sqrt(Gx[7]*Gx[7]+Gy[7]*Gy[7]) 
-			// + filter[8]*std::sqrt(Gx[8]*Gx[8]+Gy[8]*Gy[8]) ;
-			int h=0;
-			int v=0; 
-			for (int j =0;j<9;j++){
-				h=h+Gx[j]*filter[j];
-				v=v+Gy[j]*filter[j];
+		else{
+			int surr[9];
+			for (int k=-1;k<2;k++){
+				surr[k+1]=(tempArray[3*(i-width+k)] + tempArray[3*(i+k-width+1)] + tempArray[3*(i+k-width)+2])/3;
+				surr[k+4]=(tempArray[3*(i+k)] + tempArray[3*(i+k)+1] + tempArray[3*(i+k)+2])/3;
+				surr[k+7]=(tempArray[3*(i+width+k)] + tempArray[3*(i+k+width)+1] + tempArray[3*(i+k+width)+2])/3;
 			}
-			int mag=std::sqrt(h*h+v*v);
+			for (int j=0;j<9;j++){
+					h=h+Gx[j]*surr[j];
+					//printf("Ex[%d]*temp[%d]: %d * %d = %f\n",j,j,Ex[j],temp[j],h);
+					v=v+Gy[j]*surr[j];
+					//printf("%f %f\n",v,h);
+				}
+			pix=sqrt(v*v+h*h);
+			if (pix<70){
+				pix=0;
+			}
+			detected[i]=(int)pix;
+		}
+		// if ( i < width || i > (size-width)) {
+		// 	filteredArray[i]= pixelArray[i];  
+		// }
+		// else if ( i % width == 0 || i %width == (width-1)) {
+		// 	filteredArray[i] = pixelArray[i] ; 
+		// }
+		// else 
+		// {
+		// 	//create temp array to perform filtering (3 by 3) 
+		// 	int filter[9] ; 
+		// 	filter[0]=pixelArray[i-width-1];
+		// 	filter[1]=pixelArray[i-width];
+		// 	filter[2]=pixelArray[i-width+1];
+		// 	filter[3]=pixelArray[i-1];
+		// 	filter[4]=pixelArray[i];
+		// 	filter[5]=pixelArray[i+1];
+		// 	filter[6]=pixelArray[i+width-1];
+		// 	filter[7]=pixelArray[i+width];
+		// 	filter[8]=pixelArray[i+width+1];
 
-			//Type casts values in filteredArray[i] to integer values in filteredInt[i].
-			filteredInt[i] = (int)filteredArray[i];
+		// 	//Calculating the new pixel 			
+		// 	//filteredArray[i] = filter[0]*std::sqrt(Gx[0]*Gx[0]+Gy[0]*Gy[0]) + filter[1]*std::sqrt(Gx[1]*Gx[1]+Gy[1]*Gy[1]) 
+		// 	// + filter[2]*std::sqrt(Gx[2]*Gx[2]+Gy[2]*Gy[2]) + filter[3]*std::sqrt(Gx[3]*Gx[3]+Gy[3]*Gy[3]) 
+		// 	// + filter[4]*std::sqrt(Gx[4]*Gx[4]+Gy[4]*Gy[4]) + filter[5]*std::sqrt(Gx[5]*Gx[5]+Gy[5]*Gy[5]) 
+		// 	// + filter[6]*std::sqrt(Gx[6]*Gx[6]+Gy[6]*Gy[6]) + filter[7]*std::sqrt(Gx[7]*Gx[7]+Gy[7]*Gy[7]) 
+		// 	// + filter[8]*std::sqrt(Gx[8]*Gx[8]+Gy[8]*Gy[8]) ;
+		// 	int h=0;
+		// 	int v=0; 
+		// 	for (int j =0;j<9;j++){
+		// 		h=h+Gx[j]*filter[j];
+		// 		v=v+Gy[j]*filter[j];
+		// 	}
+		// 	int mag=std::sqrt(h*h+v*v);
+
+		// 	//Type casts values in filteredArray[i] to integer values in filteredInt[i].
+		// 	filteredInt[i] = (int)filteredArray[i];
 			
-			//Deals with pixels larger than 255 to wrap around to 0.
-			if ( mag < 70){
-				filteredInt[i] = 0; 
-			}
-			//If values do not exceed 255, they maintain their original result.
-			else {
-				filteredInt[i] = mag;	
-			}
+		// 	//Deals with pixels larger than 255 to wrap around to 0.
+		// 	if ( mag < 70){
+		// 		filteredInt[i] = 0; 
+		// 	}
+		// 	//If values do not exceed 255, they maintain their original result.
+		// 	else {
+		// 		filteredInt[i] = mag;	
+		// 	}
 
-		}
+	}
 
 
-	}	
 	//end measuring time and calculate runtime 
 	auto end = std::chrono::high_resolution_clock::now(); 
 	auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end-begin); 
@@ -139,10 +167,9 @@ void edgeDetector:: getFilteredArray ( std:: string inputfile) {
 	outfile << width<< std::endl;
 	outfile << height<<std::endl;
 
-	for (int j =0 ;  j < size ; j++)
+	for (int l =0; l < size; l++)
 	{
-		outfile << filteredInt[j] <<std::endl ; 
+		outfile << detected[l] <<std::endl ; 
 	}	
 	outfile.close() ; 
- 	
-} 
+}

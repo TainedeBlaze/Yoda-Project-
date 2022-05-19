@@ -48,9 +48,9 @@ int main(void)
 	
 	//------------------------------------------------------------------------
 	 
-	auto begin = std::chrono::high_resolution_clock::now(); 
+	
 	//Initialize Buffers, memory space the allows for communication between the host and the target device
-	cl_mem RGB_buffer, width_buffer, length_buffer,grayscale_buffer, detected_buffer;
+	cl_mem RGB_buffer, width_buffer, length_buffer, detected_buffer;
 
 	//***step 1*** Get the platform you want to use
 	//cl_int clGetPlatformIDs(cl_uint num_entries,
@@ -176,6 +176,7 @@ int main(void)
 	//						cl_int *errcode_ret)
 	
 	//TODO code 8: create the queue
+	auto begin = std::chrono::high_resolution_clock::now(); 
 	cl_command_queue queue = clCreateCommandQueueWithProperties(context, device, 0, NULL);
 
 	//------------------------------------------------------------------------
@@ -189,7 +190,7 @@ int main(void)
 	cl_int num_groups = global_size/local_size; //number of work groups needed
 
 	int detected[global_size]; //output array
-	int grayscale[global_size];
+	//int grayscale[global_size];
 
 	//Buffer (memory block) that both the host and target device can access 
 		//cl_mem clCreateBuffer(cl_context context,
@@ -203,7 +204,7 @@ int main(void)
 	width_buffer = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(uint), &w, &err);
 	length_buffer = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(uint), &l, &err);
     //Stores outputs from kernel so host can retrieve what the kernel has calculated.
-	grayscale_buffer = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, global_size*sizeof(int), grayscale, &err);
+	//grayscale_buffer = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, global_size*sizeof(int), grayscale, &err);
 	detected_buffer = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, global_size*sizeof(int), detected, &err);
 
 
@@ -218,8 +219,8 @@ int main(void)
 	clSetKernelArg(kernel, 0, sizeof(cl_mem), &RGB_buffer);
 	clSetKernelArg(kernel, 1, sizeof(cl_mem), &width_buffer);
 	clSetKernelArg(kernel, 2, sizeof(cl_mem), &length_buffer);
-	clSetKernelArg(kernel, 3, sizeof(cl_mem), &grayscale_buffer);
-	clSetKernelArg(kernel, 4, sizeof(cl_mem), &detected_buffer);
+	//clSetKernelArg(kernel, 3, sizeof(cl_mem), &grayscale_buffer);
+	clSetKernelArg(kernel, 3, sizeof(cl_mem), &detected_buffer);
 	
 	//------------------------------------------------------------------------
 
@@ -275,7 +276,7 @@ int main(void)
 	clReleaseMemObject(detected_buffer);
 	clReleaseMemObject(width_buffer);
 	clReleaseMemObject(length_buffer);
-	clReleaseMemObject(grayscale_buffer);
+	//clReleaseMemObject(grayscale_buffer);
 	clReleaseCommandQueue(queue);
 	clReleaseProgram(program);
 	clReleaseContext(context);
