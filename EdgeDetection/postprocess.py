@@ -10,23 +10,7 @@ def convertToImage(filename):
     width=data.pop(0)
     height=data.pop(0)
     print("width")
-    # for i in range(98696,98712):
-        # print(data[i])
     data_array = np.array(data)
-    #data_array=np.uint(data_array)
-    
-    #for i in range(98696,98712):
-     #   print(data_array[i])
-    #data_array=np.interp(data_array, (data_array.min(), data_array.max()), (0, +255))
-    # data_array=np.uint16(data_array)
-    # for i in range(len(data_array)):
-    #     if data_array[i]>255:
-    #         data_array[i]=0
-    #     else:
-    #         data_array[i]=255
-    #for i in range(98690,98712):
-     #   print(data_array[i])
-    #print(np.ptp(new_data))
     data_array = np.reshape(data_array, (int(height),int(width))) 
     #parse through and find all digits
     
