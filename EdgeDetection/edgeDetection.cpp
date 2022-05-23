@@ -15,8 +15,6 @@ using namespace std;
 int main(void)
 {	
 	//Read pixels from .txt file
-	int y=sqrt(4);
-	printf("%d",y);
 	string filename;
 	cout << "Enter .txt filename: ";
 	cin >> filename;
