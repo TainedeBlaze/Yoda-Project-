@@ -2,8 +2,7 @@
 
 __kernel void MedianFilter(__global int* arr, 
 						__global uint* w, 
-						__global uint* l, 
-						__global int* grayscale, 
+						__global uint* l,  
 						__global int* filtered){
 	//work item numbers
 	int n = get_global_id(0); //Work item ID

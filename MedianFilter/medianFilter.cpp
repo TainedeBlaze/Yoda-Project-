@@ -16,6 +16,8 @@ using namespace std::chrono;
 
 int main(void)
 {	
+	
+
 	//Read pixels from .txt file
 	string filename;
 	cout << "Enter .txt filename: ";
@@ -32,10 +34,9 @@ int main(void)
 			inputfile >> arr[i];
 		}
 	cout << ".txt file imported to 1D array" << '\n';
-
-	auto begin = std::chrono::high_resolution_clock::now();
 	int sz=sizeof(arr)/sizeof(arr[0]); //Length of RGB array
-	
+
+	auto OH_start = std::chrono::high_resolution_clock::now(); // Start overhead timer
 	//Retreiving platform info:
 	cl_uint platformCount;
 	cl_platform_id *platforms;
@@ -123,9 +124,13 @@ int main(void)
 	clSetKernelArg(kernel, 1, sizeof(cl_mem), &width_buffer);
 	clSetKernelArg(kernel, 2, sizeof(cl_mem), &length_buffer);
 	clSetKernelArg(kernel, 3, sizeof(cl_mem), &filtered_buffer);
-	
+	auto OH_end = std::chrono::high_resolution_clock::now(); // End overhead timer
+	auto OH_elapsed = std::chrono::duration_cast<std::chrono::microseconds>(OH_end-OH_start); 
+	std::cout<<"Overhead time: " << OH_elapsed.count() << " microseconds " <<std::endl ;
+
 	//------------------------------------------------------------------------
 	// Deploy kernel
+	auto begin = std::chrono::high_resolution_clock::now(); //  start timer
     cl_int err4 = clEnqueueNDRangeKernel(queue, kernel, 1, NULL, &global_size, &local_size, 0, NULL, NULL);	 	
 	printf("\nKernel check: %i \n",err4);
 
@@ -159,7 +164,6 @@ int main(void)
 	clReleaseMemObject(filtered_buffer);
 	clReleaseMemObject(width_buffer);
 	clReleaseMemObject(length_buffer);
-	clReleaseMemObject(grayscale_buffer);
 	clReleaseCommandQueue(queue);
 	clReleaseProgram(program);
 	clReleaseContext(context);
